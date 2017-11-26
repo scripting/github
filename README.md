@@ -1,2 +1,4 @@
 # github
-Read and write files to a GitHub repository
+
+Read and write files to a GitHub repository.
+

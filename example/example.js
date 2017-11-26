@@ -1,19 +1,12 @@
 const fs = require ("fs");
 const utils = require ("daveutils");
-const davegithub = require ("../davegithub.js");
+const davegithub = require ("davegithub"); 
 
-function getFileTest () {
+function getFileTest (callback) {
 	const options = {
 		username: "scripting",
-		password: "",
 		repo: "test1",
-		repoPath: "package.json",
-		type: "text/html",
-		committer: {
-			name: "Dave Winer",
-			email: "dave.winer@gmail.com"
-			},
-		message: "Test update",
+		repoPath: "lyrics.txt",
 		userAgent: "Dave's Test GitHub Uploader"
 		};
 	davegithub.getFile (options, function (err, data, jstruct) {
@@ -21,22 +14,23 @@ function getFileTest () {
 			console.log (err.message);
 			}
 		else {
-			console.log (data);
+			console.log ("getFileTest: data == " + data);
 			}
+		callback ();
 		});
 	}
 function uploadFileTest () {
 	const options = {
 		username: "scripting",
 		repo: "test1",
-		repoPath: "happy.txt",
-		data: "I need love to keep me happy.",
+		repoPath: "motto.txt",
+		data: "It's even worse than it appears.",
 		type: "text/plain",
 		committer: {
 			name: "Dave Winer",
 			email: "dave.winer@gmail.com"
 			},
-		message: "Test update",
+		message: "Set the motto",
 		userAgent: "Dave's Test GitHub Uploader"
 		};
 	fs.readFile ("config.json", function (err, data) {
@@ -46,7 +40,8 @@ function uploadFileTest () {
 		else {
 			const config = JSON.parse (data);
 			options.password = config.password;
-			davegithub.uploadFile (options, function () {
+			davegithub.uploadFile (options, function (err, response, body) {
+				console.log ("uploadFileTest: response.statusCode == " + response.statusCode);
 				});
 			}
 		});
@@ -88,4 +83,6 @@ function uploadFileTestMp3 () {
 	
 	}
 
-uploadFileTestMp3 ();
+getFileTest (function () {
+	uploadFileTest ();
+	});

@@ -2,7 +2,7 @@
 	"name": "davegithub", 
 	"description": "Read and write files to a GitHub repository.",
 	"author": "Dave Winer <dave@smallpicture.com>",
-	"version": "0.4.0",
+	"version": "0.4.2",
 	"main": "davegithub.js",
 	"scripts": {
 		"start": "node davegithub.js"

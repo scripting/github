@@ -1,4 +1,4 @@
-var myVersion = "0.4.0", myProductName = "davegithub"; 
+var myVersion = "0.4.2", myProductName = "davegithub"; 
 
 const utils = require ("daveutils");
 const request = require ("request");
@@ -31,7 +31,6 @@ function getFile (options, callback) {
 					}
 				}
 			catch (err) {
-				console.log ("davegithub.getFile: err.message == " + err.message);
 				if (callback !== undefined) {
 					callback (err);
 					}
@@ -65,10 +64,7 @@ function uploadFile (options, callback) {
 			};
 		request (theRequest, function (err, response, body) { 
 			if (err) {
-				console.log ("uploadOneFile: f == " + f + ", err.message == " + err.message);
-				}
-			else {
-				console.log ("uploadOneFile: response.statusCode == " + response.statusCode);
+				console.log ("uploadFile: err.message == " + err.message);
 				}
 			if (callback !== undefined) {
 				callback (err, response, body);

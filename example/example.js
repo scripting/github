@@ -1,6 +1,6 @@
 const fs = require ("fs");
 const utils = require ("daveutils");
-const davegithub = require ("davegithub"); 
+const davegithub = require ("../davegithub.js");
 
 function getFileTest (callback) {
 	const options = {
@@ -14,7 +14,7 @@ function getFileTest (callback) {
 			console.log (err.message);
 			}
 		else {
-			console.log ("getFileTest: data == " + data);
+			console.log ("getFileTest: data.length == " + data.length);
 			}
 		callback ();
 		});
@@ -24,7 +24,7 @@ function uploadFileTest () {
 		username: "scripting",
 		repo: "test1",
 		repoPath: "motto.txt",
-		data: "It's even worse than it appears.",
+		data: utils.getRandomSnarkySlogan (),
 		type: "text/plain",
 		committer: {
 			name: "Dave Winer",
@@ -41,7 +41,9 @@ function uploadFileTest () {
 			const config = JSON.parse (data);
 			options.password = config.password;
 			davegithub.uploadFile (options, function (err, response, body) {
-				console.log ("uploadFileTest: response.statusCode == " + response.statusCode);
+				if (response !== undefined) {
+					console.log ("uploadFileTest: response.statusCode == " + response.statusCode);
+					}
 				});
 			}
 		});

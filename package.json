@@ -1,12 +1,15 @@
 { 
 	"name": "davegithub", 
 	"description": "Read and write files to a GitHub repository.",
-	"author": "Dave Winer <dave@smallpicture.com>",
-	"version": "0.4.2",
+	"author": "Dave Winer <dave@scripting.com>",
+	"version": "0.4.5",
 	"main": "davegithub.js",
 	"scripts": {
 		"start": "node davegithub.js"
 		},
+	"files": [
+		"davegithub.js"
+		],
 	"repository": {
 		"type" : "git",
 		"url" : "https://github.com/scripting/github.git"

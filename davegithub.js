@@ -1,4 +1,4 @@
-var myVersion = "0.4.2", myProductName = "davegithub"; 
+var myVersion = "0.4.5", myProductName = "davegithub";  
 
 const utils = require ("daveutils");
 const request = require ("request");
@@ -26,7 +26,7 @@ function getFile (options, callback) {
 			try {
 				var jstruct = JSON.parse (body);
 				if (callback !== undefined) {
-					var buffer = new Buffer (jstruct.content, "base64"); 
+					var buffer = Buffer.from (jstruct.content, "base64"); //work around deprecation warning -- 12/10/20 by DW
 					callback (undefined, buffer.toString (), jstruct);
 					}
 				}
@@ -45,18 +45,23 @@ function uploadFile (options, callback) {
 			name: options.committer.name,
 			email: options.committer.email
 			},
-		content: new Buffer (options.data).toString ('base64')
+		content: Buffer.from (options.data).toString ("base64")
 		};
 	getFile (options, function (err, data, jstruct) {
 		if (jstruct !== undefined) {
 			bodyStruct.sha = jstruct.sha;
 			}
-		var username = options.username;
-		var url = "https://" + username + ":" + options.password + "@api.github.com/repos/" + username + "/" + options.repo + "/contents/" + options.repoPath;
+		var url = "https://api.github.com/repos/" + options.username + "/" + options.repo + "/contents/" + options.repoPath;
+		
 		var theRequest = {
 			method: "PUT",
 			url: url,
 			body: JSON.stringify (bodyStruct),
+			auth: {
+				user: options.username,
+				pass: options.password,
+				sendImmediately: true
+				},
 			headers: {
 				"User-Agent": options.userAgent,
 				"Content-Type": options.type

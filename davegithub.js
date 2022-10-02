@@ -1,4 +1,4 @@
-var myVersion = "0.5.3", myProductName = "davegithub";  
+var myVersion = "0.5.4", myProductName = "davegithub";  
 
 const utils = require ("daveutils");
 const request = require ("request");
@@ -54,7 +54,7 @@ function getFile (options, callback) {
 		});
 	}
 
-function checkQueryQueue () { //10/1/22 by DW
+function checkUploadQueue () { //10/1/22 by DW
 	if (uploadQueue.length == 0) { //we can kill the thread
 		let id = idQueueThread;
 		idQueueThread = undefined;
@@ -111,13 +111,13 @@ function doUpload (options, callback) {
 			});
 		});
 	}
-function startQueryQueue () {
-	idQueueThread = setInterval (checkQueryQueue, 100); //every tenth second
+function startUploadQueue () {
+	idQueueThread = setInterval (checkUploadQueue, 100); //every tenth second
 	}
 function uploadFile (options, callback) { //10/1/22 by DW
 	if (options.flUseQueue) { //10/1/22 by DW
 		if (idQueueThread === undefined) {
-			startQueryQueue ();
+			startUploadQueue ();
 			}
 		uploadQueue.push ({options, callback});
 		}

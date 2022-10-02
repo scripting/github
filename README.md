@@ -18,6 +18,8 @@ When I integrated the new queued github writer with the big app I'm working on i
 
 5. It worked. ;-)
 
+<a href="https://github.com/scripting/uploadFolderToGitHub">Here's the app I used</a>, good example code for davegithub.
+
 #### 10/1/22 by DW
 
 New option when uploading a file -- flUseQueue, if true we make sure they run one after the other, because that's how the GH server likes it.
